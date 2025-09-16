@@ -20,29 +20,26 @@ class UsersController extends Controller {
     }
 
     function create()
-    {
-         
-        if($this->io->method() == 'post'){
-            $username = $this->io->post('username');
-            $email = $this->io->post('email');
+{
+    if ($this->io->method() == 'post') {
+        $username = $this->io->post('username');
+        $email = $this->io->post('email');
 
-            $data = array(
-                'username'=> $username,
-                'email'=> $email
-            );
+        $data = array(
+            'username'=> $username,
+            'email'=> $email
+        );
 
-            if($this->UsersModel->insert($data))
-                {
-                   redirect();
-                }else{
-                    echo "Error creating user.";
-                    
-                }
-        }else{
-            $this->call->view('users/create');
+        if ($this->UsersModel->insert($data)) {
+            redirect('index.php'); // ✅ redirect after insert
+        } else {
+            echo "Error creating user.";
         }
-       
+    } else {
+        $this->call->view('users/create');
     }
+}
+
 
     function update($id){
     $user = $this->UsersModel->find($id);
