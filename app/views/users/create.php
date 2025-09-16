@@ -13,7 +13,7 @@
   <div class="bg-green-100 shadow-xl rounded-2xl p-8 w-full max-w-md border border-green-300">
     <h2 class="text-3xl font-bold text-center text-green-800 mb-6">Create an Account</h2>
 
-    <!-- ✅ Form -->
+    <!-- Form -->
     <form id="signupForm" class="space-y-5">
 
       <!-- Username -->
@@ -40,39 +40,17 @@
       </button>
     </form>
 
-    <!-- ✅ Users List -->
-    <div id="userList" class="mt-8">
-      <h3 class="text-xl font-bold text-green-800 mb-3 text-center">📋 Registered Accounts</h3>
-      <ul id="userItems" class="space-y-2"></ul>
-    </div>
-
     <p class="mt-6 text-sm text-center text-green-800">
       Already have an account? 
-      <a href="#" class="text-green-700 font-semibold hover:underline">Log In</a>
+      <a href="index.php" class="text-green-700 font-semibold hover:underline">Log In</a>
     </p>
   </div>
 
-  <!-- ✅ Script -->
   <script>
-    const form = document.getElementById('signupForm');
-    const userItems = document.getElementById('userItems');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault(); // Huwag muna i-refresh ang page
-
-      const username = document.getElementById('username').value;
-      const email = document.getElementById('email').value;
-
-      // Gumawa ng bagong list item para sa user
-      const li = document.createElement('li');
-      li.className = "bg-green-200 border border-green-400 p-3 rounded-lg shadow-sm";
-      li.innerHTML = `<span class="font-semibold">${username}</span> - ${email}`;
-
-      // Idagdag sa listahan
-      userItems.appendChild(li);
-
-      // Reset form fields
-      form.reset();
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // stop form from posting
+      // here you can add validation if needed
+      window.location.href = "index.php"; // redirect to index.php
     });
   </script>
 
