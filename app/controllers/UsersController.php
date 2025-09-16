@@ -31,7 +31,7 @@ class UsersController extends Controller {
         );
 
         if ($this->UsersModel->insert($data)) {
-            redirect('index.php'); // ✅ redirect after insert
+            redirect();
         } else {
             echo "Error creating user.";
         }
