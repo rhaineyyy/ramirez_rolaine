@@ -14,7 +14,7 @@
     <h2 class="text-3xl font-bold text-center text-green-800 mb-6">Create an Account</h2>
 
     <!-- ✅ Sign Up Form -->
-    <form id="signupForm" method="post" action="create.php" class="space-y-5">
+    <form method="post" action="<?= site_url('users/create'); ?>" class="space-y-5">
 
       <!-- Username -->
       <div>
@@ -43,7 +43,7 @@
     <!-- Footer link -->
     <p class="mt-6 text-sm text-center text-green-800">
       Already have an account? 
-      <a href="index.php" class="text-green-700 font-semibold hover:underline">Log In</a>
+      <a href="<?= site_url('index'); ?>" class="text-green-700 font-semibold hover:underline">Log In</a>
     </p>
   </div>
 
