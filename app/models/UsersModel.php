@@ -2,18 +2,114 @@
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 /**
- * Model: UsersModel
+ * Controller: UsersController
  * 
  * Automatically generated via CLI.
  */
-class UsersModel extends Model {
-    protected $table = 'users';
-    protected $primary_key = 'id';
-
+class UsersController extends Controller {
     public function __construct()
     {
         parent::__construct();
     }
 
-    
+    public function index(){
+        $this->call->model('UsersModel');
+        $data['users'] = $this->UsersModel->all();
+
+         // Current page (default 1)
+        $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int) $_GET['page'] : 1;
+
+        // Search query
+        $q = isset($_GET['q']) ? trim($this->io->get('q')) : '';
+
+        // Records per page
+        $records_per_page = 5;
+
+        // Get data from model
+        $all = $this->UsersModel->page($q, $records_per_page, $page);
+        $data['users'] = $all['records'];
+        $total_rows = $all['total_rows'];
+
+        // Pagination setup
+        $this->pagination->set_options([
+            'first_link'         => '⏮ First',
+            'last_link'          => 'Last ⏭',
+            'next_link'          => 'Next →',
+            'prev_link'          => '← Prev',
+            'page_query_string'  => true,         // gumamit ng query string ?page=
+            'query_string_segment' => 'page',     // param name
+        ]);
+
+        $this->pagination->set_theme('default');
+
+        $this->pagination->initialize(
+            $total_rows,
+            $records_per_page,
+            $page,
+            site_url() . '?q=' . urlencode($q)
+        );
+        $data['page'] = $this->pagination->paginate();
+
+
+        $this->call->view('users/index', $data);
+    }
+
+    function create()
+    {
+         
+        if($this->io->method() == 'post'){
+            $username = $this->io->post('username');
+            $email = $this->io->post('email');
+
+            $data = array(
+                'username'=> $username,
+                'email'=> $email
+            );
+
+            if($this->UsersModel->insert($data))
+                {
+                   redirect();
+                }else{
+                    echo "Error creating user.";
+                    
+                }
+        }else{
+            $this->call->view('users/create');
+        }
+       
+    }
+
+    function update($id){
+    $user = $this->UsersModel->find($id);
+    if(!$user){
+        echo "User not found.";
+        return;
+    }
+
+    if($this->io->method() == 'post'){
+        $username = $this->io->post('username');
+        $email = $this->io->post('email');
+
+        $data = array(
+            'username'=> $username,
+            'email'=> $email
+        );
+
+        if($this->UsersModel->update($id, $data)){
+            redirect(); 
+        } else{
+            echo "Error updating user.";
+        }
+    } else{
+        $data['user'] = $user;
+        $this->call->view('users/update', $data);
+    }
+}
+    function delete($id){
+       if($this->UsersModel->delete($id)) {
+            redirect();
+    } else{
+        echo "Error deleting user.";
+    }
+}
 }
