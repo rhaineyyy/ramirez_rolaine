@@ -86,35 +86,40 @@
         .table-row-hover:hover {
             background-color: rgba(77, 95, 67, 0.2);
         }
+        /* Fixed Pagination Styles */
         .pagination {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 20px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding: 8px 0;
+            gap: 4px;
         }
         .pagination a, .pagination span {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 38px;
-            height: 38px;
-            padding: 0 8px;
+            min-width: 40px;
+            height: 40px;
+            padding: 0 12px;
             border-radius: 6px;
             background-color: #3e4c36;
             color: #e8efe6;
             text-decoration: none;
             transition: all 0.3s ease;
+            white-space: nowrap;
             font-size: 14px;
             font-weight: 500;
         }
         .pagination a:hover {
             background-color: #4d5f43;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .pagination .current {
             background: linear-gradient(to right, #647959, #4d5f43);
             font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .pagination .disabled {
             opacity: 0.6;
@@ -127,7 +132,6 @@
         <!-- Header -->
         <header class="mb-8 text-center">
             <h1 class="text-4xl font-bold text-sage-300 header-glow mb-2">User Management System</h1>
-            <p class="text-sage-200">Students Information</p>
         </header>
 
         <!-- Main Content Card -->
@@ -218,42 +222,20 @@
                 </div>
                 
                 <!-- Pagination -->
-                <div class="pagination">
-                    <?php 
-                    // Sample pagination structure - your actual $page variable will be used
-                    echo '
-                    <a href="#" class="disabled">&laquo;</a>
-                    <a href="#">1</a>
-                    <span class="current">2</span>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">&raquo;</a>
-                    ';
-                    ?>
+                <div class="flex justify-center mt-6">
+                    <div class="pagination">
+                        <a href="#" class="pagination-link"><i class="fas fa-angle-double-left mr-1"></i> First</a>
+                        <a href="#" class="pagination-link"><i class="fas fa-angle-left mr-1"></i> Prev</a>
+                        <a href="#" class="pagination-link">1</a>
+                        <span class="current">2</span>
+                        <a href="#" class="pagination-link">3</a>
+                        <a href="#" class="pagination-link">4</a>
+                        <a href="#" class="pagination-link">Next <i class="fas fa-angle-right ml-1"></i></a>
+                        <a href="#" class="pagination-link">Last <i class="fas fa-angle-double-right ml-1"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        // This script ensures pagination links stay in a single row
-        document.addEventListener('DOMContentLoaded', function() {
-            const paginationContainer = document.querySelector('.pagination');
-            if (paginationContainer) {
-                // Force single row layout
-                paginationContainer.style.flexWrap = 'nowrap';
-                paginationContainer.style.overflowX = 'auto';
-                paginationContainer.style.padding = '10px 0';
-                
-                // Prevent links from wrapping
-                const paginationLinks = paginationContainer.querySelectorAll('a, span');
-                paginationLinks.forEach(link => {
-                    link.style.whiteSpace = 'nowrap';
-                    link.style.flexShrink = '0';
-                });
-            }
-        });
-    </script>
 </body>
 </html>
