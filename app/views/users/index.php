@@ -86,6 +86,44 @@
         .table-row-hover:hover {
             background-color: rgba(77, 95, 67, 0.2);
         }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            gap: 6px;
+            margin-top: 20px;
+            padding: 10px 0;
+            width: 100%;
+        }
+        .pagination a, .pagination span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 38px;
+            height: 38px;
+            padding: 0 8px;
+            border-radius: 6px;
+            background-color: #3e4c36;
+            color: #e8efe6;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .pagination a:hover {
+            background-color: #4d5f43;
+            transform: translateY(-1px);
+        }
+        .pagination .current {
+            background: linear-gradient(to right, #647959, #4d5f43);
+            font-weight: 600;
+        }
+        .pagination .disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body class="text-sage-100">
