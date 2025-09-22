@@ -2,109 +2,51 @@
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 /**
- * Controller: UsersController
+ * Model: UsersModel
  * 
  * Automatically generated via CLI.
  */
-class UsersController extends Controller {
+class UsersModel extends Model {
+    protected $table = 'users';
+    protected $primary_key = 'id';
+
+      protected $allowed_fields = ['username', 'email'];
+
+       protected $validation_rules = [
+        'username' => 'required|min_length[2]|max_length[100]',
+        'email'    => 'required|valid_email|max_length[150]'
+    ];
+
     public function __construct()
     {
         parent::__construct();
     }
 
-   public function index()
-    {
-        $this->call->model('UsersModel');
+     public function page($q = '', $records_per_page = null, $page = null) {
+ 
+            if (is_null($page)) {
+                return $this->db->table('users')->get_all();
+            } else {
+                $query = $this->db->table('users');
 
-        $page = 1;
-        if(isset($_GET['page']) && ! empty($_GET['page'])) {
-            $page = $this->io->get('page');
-        }
-
-        $q = '';
-        if(isset($_GET['q']) && ! empty($_GET['q'])) {
-            $q = trim($this->io->get('q'));
-        }
-
-        $records_per_page = 10;
-
-        $user = $this->UsersModel->page($q, $records_per_page, $page);
-        $data['user'] = $user['records'];
-        $total_rows = $user['total_rows'];
-
-        $this->pagination->set_options([
-            'first_link'     => '⏮ First',
-            'last_link'      => 'Last ⏭',
-            'next_link'      => 'Next →',
-            'prev_link'      => '← Prev',
-            'page_delimiter' => '&page='
-        ]);
-        
-        $this->pagination->set_theme('default');
-
-         $this->pagination->initialize($total_rows, $records_per_page, $page, 'users?q='.$q);
-        $data['page'] = $this->pagination->paginate();
-
-
-        $this->call->view('users/index', $data);
-    }
-
-    function create()
-    {
-         
-        if($this->io->method() == 'post'){
-            $username = $this->io->post('username');
-            $email = $this->io->post('email');
-
-            $data = array(
-                'username'=> $username,
-                'email'=> $email
-            );
-
-            if($this->UsersModel->insert($data))
-                {
-                   redirect();
-                }else{
-                    echo "Error creating user.";
+                // Build LIKE conditions
+                $query->like('id', '%'.$q.'%')
+                    ->or_like('username', '%'.$q.'%')
+                    ->or_like('email', '%'.$q.'%');
                     
-                }
-        }else{
-            $this->call->view('users/create');
+                // Clone before pagination
+                $countQuery = clone $query;
+
+                $data['total_rows'] = $countQuery->select_count('*', 'count')
+                                                ->get()['count'];
+
+                $data['records'] = $query->pagination($records_per_page, $page)
+                                        ->get_all();
+
+                return $data;
+            }
         }
-       
-    }
 
-    function update($id){
-    $user = $this->UsersModel->find($id);
-    if(!$user){
-        echo "User not found.";
-        return;
-    }
-
-    if($this->io->method() == 'post'){
-        $username = $this->io->post('username');
-        $email = $this->io->post('email');
-
-        $data = array(
-            'username'=> $username,
-            'email'=> $email
-        );
-
-        if($this->UsersModel->update($id, $data)){
-            redirect(); 
-        } else{
-            echo "Error updating user.";
-        }
-    } else{
-        $data['user'] = $user;
-        $this->call->view('users/update', $data);
-    }
 }
-    function delete($id){
-       if($this->UsersModel->delete($id)) {
-            redirect();
-    } else{
-        echo "Error deleting user.";
-    }
-}
-}
+
+    
