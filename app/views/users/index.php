@@ -111,6 +111,7 @@
         <!-- Header -->
         <header class="mb-8 text-center">
             <h1 class="text-4xl font-bold text-sage-300 header-glow mb-2">User Management System</h1>
+            <p class="text-sage-200">Students Information</p>
         </header>
 
         <!-- Main Content Card -->
@@ -200,11 +201,12 @@
                     </table>
                 </div>
                 
-               <div class="flex justify-center mt-6">
-    <div class="pagination flex flex-nowrap overflow-x-auto justify-center gap-1 py-2">
-        <?php echo $page; ?>
-    </div>
-</div>
+                <!-- Pagination -->
+                <div class="flex justify-center mt-6">
+                    <div class="pagination">
+                        <?php echo $page; ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
