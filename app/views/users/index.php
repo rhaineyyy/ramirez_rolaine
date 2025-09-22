@@ -86,15 +86,27 @@
         .table-row-hover:hover {
             background-color: rgba(77, 95, 67, 0.2);
         }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 20px;
+        }
         .pagination a, .pagination span {
-            display: inline-block;
-            padding: 8px 16px;
-            margin: 0 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 38px;
+            height: 38px;
+            padding: 0 8px;
             border-radius: 6px;
             background-color: #3e4c36;
             color: #e8efe6;
             text-decoration: none;
             transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
         }
         .pagination a:hover {
             background-color: #4d5f43;
@@ -103,6 +115,10 @@
         .pagination .current {
             background: linear-gradient(to right, #647959, #4d5f43);
             font-weight: 600;
+        }
+        .pagination .disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -202,13 +218,42 @@
                 </div>
                 
                 <!-- Pagination -->
-                <div class="flex justify-center mt-6">
-                    <div class="pagination">
-                        <?php echo $page; ?>
-                    </div>
+                <div class="pagination">
+                    <?php 
+                    // Sample pagination structure - your actual $page variable will be used
+                    echo '
+                    <a href="#" class="disabled">&laquo;</a>
+                    <a href="#">1</a>
+                    <span class="current">2</span>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">&raquo;</a>
+                    ';
+                    ?>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // This script ensures pagination links stay in a single row
+        document.addEventListener('DOMContentLoaded', function() {
+            const paginationContainer = document.querySelector('.pagination');
+            if (paginationContainer) {
+                // Force single row layout
+                paginationContainer.style.flexWrap = 'nowrap';
+                paginationContainer.style.overflowX = 'auto';
+                paginationContainer.style.padding = '10px 0';
+                
+                // Prevent links from wrapping
+                const paginationLinks = paginationContainer.querySelectorAll('a, span');
+                paginationLinks.forEach(link => {
+                    link.style.whiteSpace = 'nowrap';
+                    link.style.flexShrink = '0';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
