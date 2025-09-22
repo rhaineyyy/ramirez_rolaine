@@ -12,42 +12,37 @@ class UsersController extends Controller {
         parent::__construct();
     }
 
-    public function index(){
+   public function index()
+    {
         $this->call->model('UsersModel');
-        $data['users'] = $this->UsersModel->all();
 
-         // Current page (default 1)
-        $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int) $_GET['page'] : 1;
+        $page = 1;
+        if(isset($_GET['page']) && ! empty($_GET['page'])) {
+            $page = $this->io->get('page');
+        }
 
-        // Search query
-        $q = isset($_GET['q']) ? trim($this->io->get('q')) : '';
+        $q = '';
+        if(isset($_GET['q']) && ! empty($_GET['q'])) {
+            $q = trim($this->io->get('q'));
+        }
 
-        // Records per page
-        $records_per_page = 5;
+        $records_per_page = 10;
 
-        // Get data from model
-        $all = $this->UsersModel->page($q, $records_per_page, $page);
-        $data['users'] = $all['records'];
-        $total_rows = $all['total_rows'];
+        $user = $this->UsersModel->page($q, $records_per_page, $page);
+        $data['user'] = $user['records'];
+        $total_rows = $user['total_rows'];
 
-        // Pagination setup
         $this->pagination->set_options([
-            'first_link'         => '⏮ First',
-            'last_link'          => 'Last ⏭',
-            'next_link'          => 'Next →',
-            'prev_link'          => '← Prev',
-            'page_query_string'  => true,         // gumamit ng query string ?page=
-            'query_string_segment' => 'page',     // param name
+            'first_link'     => '⏮ First',
+            'last_link'      => 'Last ⏭',
+            'next_link'      => 'Next →',
+            'prev_link'      => '← Prev',
+            'page_delimiter' => '&page='
         ]);
-
+        
         $this->pagination->set_theme('default');
 
-        $this->pagination->initialize(
-            $total_rows,
-            $records_per_page,
-            $page,
-            site_url() . '?q=' . urlencode($q)
-        );
+         $this->pagination->initialize($total_rows, $records_per_page, $page, 'users?q='.$q);
         $data['page'] = $this->pagination->paginate();
 
 
