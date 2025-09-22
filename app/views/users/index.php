@@ -86,44 +86,23 @@
         .table-row-hover:hover {
             background-color: rgba(77, 95, 67, 0.2);
         }
-        /* Fixed Pagination Styles */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            padding: 8px 0;
-            gap: 4px;
-        }
         .pagination a, .pagination span {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 40px;
-            height: 40px;
-            padding: 0 12px;
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 4px;
             border-radius: 6px;
             background-color: #3e4c36;
             color: #e8efe6;
             text-decoration: none;
             transition: all 0.3s ease;
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: 500;
         }
         .pagination a:hover {
             background-color: #4d5f43;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-1px);
         }
         .pagination .current {
             background: linear-gradient(to right, #647959, #4d5f43);
             font-weight: 600;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .pagination .disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
         }
     </style>
 </head>
@@ -221,19 +200,11 @@
                     </table>
                 </div>
                 
-                <!-- Pagination -->
-                <div class="flex justify-center mt-6">
-                    <div class="pagination">
-                        <a href="#" class="pagination-link"><i class="fas fa-angle-double-left mr-1"></i> First</a>
-                        <a href="#" class="pagination-link"><i class="fas fa-angle-left mr-1"></i> Prev</a>
-                        <a href="#" class="pagination-link">1</a>
-                        <span class="current">2</span>
-                        <a href="#" class="pagination-link">3</a>
-                        <a href="#" class="pagination-link">4</a>
-                        <a href="#" class="pagination-link">Next <i class="fas fa-angle-right ml-1"></i></a>
-                        <a href="#" class="pagination-link">Last <i class="fas fa-angle-double-right ml-1"></i></a>
-                    </div>
-                </div>
+               <div class="flex justify-center mt-6">
+    <div class="pagination flex flex-nowrap overflow-x-auto justify-center gap-1 py-2">
+        <?php echo $page; ?>
+    </div>
+</div>
             </div>
         </div>
     </div>
