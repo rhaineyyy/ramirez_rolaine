@@ -87,14 +87,21 @@
             background-color: rgba(77, 95, 67, 0.2);
         }
         .pagination a, .pagination span {
-            display: inline-block;
-            padding: 8px 16px;
-            margin: 0 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 38px;
+            height: 38px;
+            padding: 0 8px;
             border-radius: 6px;
             background-color: #3e4c36;
             color: #e8efe6;
             text-decoration: none;
             transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         .pagination a:hover {
             background-color: #4d5f43;
@@ -202,7 +209,6 @@
                 </div>
                 
                 <!-- Pagination -->
-                <div class="flex justify-center mt-6">
                     <div class="pagination">
                         <?php echo $page; ?>
                     </div>
