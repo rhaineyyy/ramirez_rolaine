@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management System</title>
+    <title>Students Info - User Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -117,35 +117,44 @@
         <!-- Main Content Card -->
         <div class="bg-sage-900 card-shadow rounded-xl overflow-hidden border border-sage-700">
             <!-- Card Header -->
-            <div class="px-6 py-4 border-b border-sage-700 flex justify-between items-center flex-wrap gap-4">
+            <div class="px-6 py-4 border-b border-sage-700 flex justify-between items-center">
                 <h2 class="text-xl font-semibold text-sage-100">
                     <i class="fas fa-users mr-2 text-sage-400"></i>Students List
                 </h2>
                 
-                <!-- Search Form -->
-                <form action="<?=site_url('users');?>" method="get" class="flex items-center gap-2">
-                    <?php
-                    $q = '';
-                    if(isset($_GET['q'])) {
-                        $q = $_GET['q'];
-                    }
-                    ?>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <i class="fas fa-search text-sage-400"></i>
+                <div class="flex items-center gap-3">
+                    <!-- Search Form -->
+                    <form action="<?=site_url('users');?>" method="get" class="flex items-center gap-2">
+                        <?php
+                        $q = '';
+                        if(isset($_GET['q'])) {
+                            $q = $_GET['q'];
+                        }
+                        ?>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i class="fas fa-search text-sage-400"></i>
+                            </div>
+                            <input 
+                                class="form-input pl-10 pr-4 py-2 rounded-lg w-64" 
+                                name="q" 
+                                type="text" 
+                                placeholder="Search students..." 
+                                value="<?=html_escape($q);?>"
+                            >
                         </div>
-                        <input 
-                            class="form-input pl-10 pr-4 py-2 rounded-lg w-64" 
-                            name="q" 
-                            type="text" 
-                            placeholder="Search students..." 
-                            value="<?=html_escape($q);?>"
-                        >
-                    </div>
-                    <button type="submit" class="btn-secondary text-white px-4 py-2 rounded-lg action-btn">
-                        Search
-                    </button>
-                </form>
+                        <button type="submit" class="btn-secondary text-white px-4 py-2 rounded-lg action-btn">
+                            Search
+                        </button>
+                    </form>
+                    
+                    <!-- Create New User Button -->
+                    <a href="<?=site_url('users/create'); ?>" 
+                       class="btn-primary text-white px-4 py-2 rounded-lg flex items-center space-x-2 action-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Create New User</span>
+                    </a>
+                </div>
             </div>
             
             <!-- Content -->
@@ -193,16 +202,10 @@
                 </div>
                 
                 <!-- Pagination -->
-                <div class="flex justify-between items-center flex-wrap gap-4">
+                <div class="flex justify-center mt-6">
                     <div class="pagination">
                         <?php echo $page; ?>
                     </div>
-                    
-                    <a href="<?=site_url('users/create'); ?>" 
-                       class="btn-primary text-white px-5 py-2.5 rounded-lg flex items-center space-x-2 action-btn">
-                        <i class="fas fa-plus-circle"></i>
-                        <span>Create New User</span>
-                    </a>
                 </div>
             </div>
         </div>
