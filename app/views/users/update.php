@@ -148,7 +148,7 @@
 
                     <!-- Action Buttons -->
                     <div class="flex justify-end space-x-4 pt-4">
-                        <a href="<?= site_url('/'); ?>" 
+                        <a href="<?= site_url('/users/index'); ?>" 
                            class="px-5 py-2.5 rounded-lg border border-sage-700 text-sage-300 bg-sage-800 hover:bg-sage-700 transition action-btn">
                             <i class="fas fa-times mr-1.5"></i> Cancel
                         </a>
