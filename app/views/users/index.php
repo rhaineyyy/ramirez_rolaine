@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students Info - User Management System</title>
+    <title>User Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -35,20 +35,21 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(to bottom right, #2b3327, #3e4c36);
+            background: linear-gradient(135deg, #f8faf7, #e8efe6);
             min-height: 100vh;
+            overflow-x: hidden;
         }
         .header-glow {
-            text-shadow: 0 0 15px rgba(164, 192, 154, 0.4);
+            text-shadow: 0 0 10px rgba(100, 121, 89, 0.6);
         }
         .card-shadow {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 5px 10px -5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 5px 10px -5px rgba(0, 0, 0, 0.05);
         }
         .table-row {
             transition: all 0.2s ease;
         }
         .table-row:hover {
-            background: rgba(164, 192, 154, 0.08);
+            background: rgba(100, 121, 89, 0.08);
         }
         .btn-primary {
             background: linear-gradient(to right, #647959, #4d5f43);
@@ -123,25 +124,204 @@
             transform: translateY(-2px);
         }
         .user-status {
-            background: rgba(164, 192, 154, 0.15);
-            border: 1px solid rgba(164, 192, 154, 0.3);
+            background: rgba(100, 121, 89, 0.2);
+            border: 1px solid rgba(100, 121, 89, 0.4);
         }
         .user-status-error {
             background: rgba(220, 38, 38, 0.15);
             border: 1px solid rgba(220, 38, 38, 0.3);
         }
+        
+        /* Darker Stars on Light Background */
+        .stars-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background: #4d5f43;
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+        
+        .glowing-star {
+            position: absolute;
+            background: radial-gradient(circle, #647959, #4d5f43, transparent);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: glow-pulse 3s infinite ease-in-out;
+        }
+        
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(45deg, transparent, #3e4c36, transparent);
+            border-radius: 50%;
+            animation: shoot 3s infinite linear;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0.2; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.2);
+            }
+        }
+        
+        @keyframes glow-pulse {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1);
+                filter: blur(1px) brightness(1);
+            }
+            50% { 
+                opacity: 0.7; 
+                transform: scale(1.3);
+                filter: blur(2px) brightness(1.3);
+            }
+        }
+        
+        @keyframes shoot {
+            0% {
+                transform: translateX(-100px) translateY(-100px) rotate(45deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Glowing Border Effect */
+        .glow-border {
+            position: relative;
+            background: #2b3327;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #647959, 
+                #849b7a, 
+                #aec0a6, 
+                #849b7a, 
+                #647959);
+            border-radius: 18px;
+            z-index: -1;
+            filter: blur(12px);
+            opacity: 0.8;
+            animation: border-glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes border-glow {
+            0% {
+                opacity: 0.6;
+                filter: blur(12px) brightness(1);
+            }
+            50% {
+                opacity: 0.9;
+                filter: blur(15px) brightness(1.3);
+            }
+            100% {
+                opacity: 0.7;
+                filter: blur(12px) brightness(1.1);
+            }
+        }
+        
+        /* Button glow effect */
+        .glow-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left 0.5s;
+        }
+        
+        .glow-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Pagination styling */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            gap: 6px;
+            margin-top: 20px;
+            padding: 10px 0;
+            width: 100%;
+        }
+        .pagination a, .pagination span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 38px;
+            height: 38px;
+            padding: 0 8px;
+            border-radius: 6px;
+            background-color: #3e4c36;
+            color: #e8efe6;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .pagination a:hover {
+            background-color: #4d5f43;
+            transform: translateY(-1px);
+        }
+        .pagination .current {
+            background: linear-gradient(to right, #647959, #4d5f43);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body class="text-sage-100">
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
-        <!-- Header -->
+    <!-- Darker Stars on Light Background -->
+    <div class="stars-background" id="starsBackground"></div>
+    
+    <div class="container mx-auto px-4 py-8 max-w-6xl relative z-10">
+        <!-- Header with Darker Text -->
         <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-sage-300 header-glow mb-2">User Management System</h1>
-            <p class="text-sage-200">Manage your application users with ease and precision</p>
+            <h1 class="text-4xl font-bold text-sage-900 header-glow mb-2">User Management System</h1>
+            <p class="text-sage-800 font-medium">Manage your application users with ease and precision</p>
         </header>
 
-        <!-- Main Content Card -->
-        <div class="bg-sage-900 card-shadow rounded-xl overflow-hidden border border-sage-700">
+        <!-- Main Content Card with Glowing Border -->
+        <div class="glow-border card-shadow rounded-xl overflow-hidden border border-sage-700">
             <!-- Card Header with Dashboard Info -->
             <div class="px-6 py-4 border-b border-sage-700 flex flex-col sm:flex-row justify-between items-center">
                 <div>
@@ -165,7 +345,7 @@
                     
                     <!-- Logout Button -->
                     <a href="<?=site_url('auth/logout'); ?>" 
-                       class="btn-logout text-white px-5 py-2 rounded-lg flex items-center space-x-2 action-btn">
+                       class="btn-logout glow-button text-white px-5 py-2 rounded-lg flex items-center space-x-2 action-btn">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>
@@ -197,7 +377,7 @@
 
                 <!-- Create User Button -->
                 <a href="<?= site_url('users/create'); ?>"
-                   class="btn-primary text-white px-5 py-2 rounded-lg flex items-center space-x-2 action-btn">
+                   class="btn-primary glow-button text-white px-5 py-2 rounded-lg flex items-center space-x-2 action-btn">
                     <i class="fas fa-plus-circle"></i>
                     <span>Create New User</span>
                 </a>
@@ -231,7 +411,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-sage-800">
-                        <?php foreach ($user as $user): ?>
+                        <?php foreach ($user as $users): ?>
                         <tr class="table-row">
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 <span class="bg-sage-800 px-3 py-1.5 rounded-lg text-sage-300 font-medium border border-sage-700">
@@ -257,11 +437,11 @@
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 <div class="flex justify-center space-x-2">
                                     <a href="<?= site_url('/users/update/'.$user['id']);?>" 
-                                       class="btn-update px-4 py-2 rounded-lg text-white transition action-btn">
+                                       class="btn-update glow-button px-4 py-2 rounded-lg text-white transition action-btn">
                                         <i class="fas fa-edit mr-1.5"></i> Update
                                     </a>
                                     <a href="<?= site_url('/users/delete/'.$user['id']);?>" 
-                                       class="btn-danger px-4 py-2 rounded-lg text-white transition action-btn">
+                                       class="btn-danger glow-button px-4 py-2 rounded-lg text-white transition action-btn">
                                         <i class="fas fa-trash mr-1.5"></i> Delete
                                     </a>
                                 </div>
@@ -271,15 +451,68 @@
                     </tbody>
                 </table>
             </div>
-
+            
             <!-- Pagination -->
-           <!-- Pagination -->
-            <div class="flex justify-center mt-6">
-                <div class="pagination flex flex-nowrap overflow-x-auto justify-center gap-1 py-2">
-                    <?php echo $page; ?>
-                 </div>
+            <div class="pagination">
+                <?php echo $page; ?>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create darker stars on light background
+            const starsBackground = document.getElementById('starsBackground');
+            
+            // Create regular twinkling stars (darker colors)
+            for (let i = 0; i < 120; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size and position
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                star.style.animationDelay = `${Math.random() * 4}s`;
+                
+                starsBackground.appendChild(star);
+            }
+            
+            // Create glowing stars (darker colors)
+            for (let i = 0; i < 40; i++) {
+                const glowingStar = document.createElement('div');
+                glowingStar.classList.add('glowing-star');
+                
+                // Random size and position
+                const size = Math.random() * 4 + 2;
+                glowingStar.style.width = `${size}px`;
+                glowingStar.style.height = `${size}px`;
+                glowingStar.style.left = `${Math.random() * 100}%`;
+                glowingStar.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                glowingStar.style.animationDelay = `${Math.random() * 3}s`;
+                
+                starsBackground.appendChild(glowingStar);
+            }
+            
+            // Create shooting stars (darker colors)
+            for (let i = 0; i < 6; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.classList.add('shooting-star');
+                
+                // Random position and animation delay
+                shootingStar.style.left = `${Math.random() * 20}%`;
+                shootingStar.style.top = `${Math.random() * 20}%`;
+                shootingStar.style.animationDelay = `${Math.random() * 10}s`;
+                
+                starsBackground.appendChild(shootingStar);
+            }
+        });
+    </script>
 </body>
 </html>
