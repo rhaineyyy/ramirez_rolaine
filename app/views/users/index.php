@@ -411,11 +411,11 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-sage-800">
-                        <?php foreach ($user as $user): ?>
+                        <?php foreach ($user as $users): ?>
                         <tr class="table-row">
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 <span class="bg-sage-800 px-3 py-1.5 rounded-lg text-sage-300 font-medium border border-sage-700">
-                                    #<?= $user['id']; ?>
+                                    #<?= $users['id']; ?>
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center font-medium text-sage-100">
