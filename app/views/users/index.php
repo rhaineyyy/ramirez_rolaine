@@ -426,10 +426,8 @@
             </div>
 
             <!-- Pagination -->
-            <div class="px-6 py-4 border-t border-sage-800">
-                <div class="flex justify-center">
-                    <div class="flex space-x-2">
-                        <?php echo $page; ?>
+           <div class="flex justify-center mt-6">
+                <div class="pagination flex flex-nowrap overflow-x-auto justify-center gap-1 py-2">
                     </div>
                 </div>
             </div>
