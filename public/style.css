@@ -16,7 +16,73 @@
     border-radius: 6px;
     background-color: #3e4c36;
     color: #e8efe6;
-    text-decoration: none;
+    text-decoration: none;.pagination {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  overflow-x: auto;
+  scrollbar-width: thin; /* For Firefox */
+}
+
+/* Pagination links and items */
+.pagination a,
+.pagination span,
+.pagination li {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8faf7;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+/* Hover effect */
+.pagination a:hover {
+  background: #647959;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Active page */
+.pagination .current {
+  background: #647959;
+  color: #ffffff;
+  font-weight: bold;
+  border: 1px solid #647959;
+}
+
+/* Scrollbar styling for WebKit browsers */
+.pagination::-webkit-scrollbar {
+  height: 6px;
+}
+
+.pagination::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 121, 89, 0.5);
+  border-radius: 4px;
+}
+
+/* Optional: Add a smooth fade shadow when overflowing */
+.pagination {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* Responsive adjustment */
+@media (max-width: 640px) {
+  .pagination a,
+  .pagination span,
+  .pagination li {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+}
     transition: all 0.3s ease;
     white-space: nowrap;
     font-size: 14px;
