@@ -466,11 +466,8 @@
             <!-- Pagination -->
            <div class="flex justify-center mt-6">
                  <div class="pagination flex flex-nowrap overflow-x-auto justify-center gap-1 py-2">
-                    <?php if(isset($page) && !empty($page)): ?>
-                        <div class="pagination-links">
                             <?= $page ?>
                         </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>
