@@ -463,12 +463,12 @@
                 </div>
             </div>
 
-           <!-- Pagination -->
         <!-- Pagination -->
             <div class="flex justify-center mt-6">
-                <div class="pagination flex flex-nowrap overflow-x-auto justify-center gap-1 py-2">
-                    <?php echo $page; ?>
-                     </div>
+                <div class="pagination flex items-center justify-center space-x-2 bg-[#1f2b22] rounded-xl p-3 shadow-lg">
+                     <?php echo $page; ?>
+                </div>
+                    </div>
                 </div>
             </div>
         </div>
