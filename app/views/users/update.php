@@ -251,7 +251,7 @@
                     <span class="user-id-badge px-3 py-1 rounded-lg text-sage-300 font-medium">
                         <i class="fas fa-hashtag mr-1.5 text-sage-400"></i>ID: <?= $user['id']; ?>
                     </span>
-                    <a href="<?= site_url('/'); ?>"
+                    <a href="<?= site_url('/users/index'); ?>"
                        class="btn-secondary text-white px-4 py-2 rounded-lg flex items-center space-x-2 action-btn glow-button">
                         <i class="fas fa-arrow-left"></i>
                         <span>Back to Users</span>
