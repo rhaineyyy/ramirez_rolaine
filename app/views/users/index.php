@@ -276,6 +276,35 @@
             color: #f8faf7;
             padding: 12px 16px;
         }
+
+        /* Pagination styling */
+        .pagination-links {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .pagination-links a, .pagination-links span {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #f8faf7;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .pagination-links a:hover {
+            background: #647959;
+            transform: translateY(-2px);
+        }
+
+        .pagination-links .current {
+            background: #647959;
+            color: #f8faf7;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="text-sage-100">
@@ -383,43 +412,52 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($users as $user): ?>
-                            <tr class="table-row">
-                                <td class="table-cell text-center">
-                                    <span class="bg-sage-800 px-3 py-1.5 rounded-lg text-sage-300 font-medium border border-sage-700">
-                                        #<?= $user['id']; ?>
-                                    </span>
-                                </td>
-                                <td class="table-cell text-center font-medium">
-                                    <i class="fas fa-user-circle mr-2 text-sage-400"></i><?= html_escape($user['username']); ?>
-                                </td>
-                                <td class="table-cell text-center">
-                                    <i class="fas fa-envelope mr-2 text-sage-400"></i><?= html_escape($user['email']); ?>
-                                </td>
-                                <?php if ($logged_in_user['role'] === 'admin'): ?>
-                                    <td class="table-cell text-center">
-                                        <i class="fas fa-lock mr-2 text-sage-400"></i>•••••••
-                                    </td>
+                            <?php if(!empty($user)): ?>
+                                <?php foreach ($user as $user_item): ?>
+                                <tr class="table-row">
                                     <td class="table-cell text-center">
                                         <span class="bg-sage-800 px-3 py-1.5 rounded-lg text-sage-300 font-medium border border-sage-700">
-                                            <?= html_escape($user['role']); ?>
+                                            #<?= $user_item['id']; ?>
                                         </span>
                                     </td>
-                                <?php endif; ?>
-                                <td class="table-cell text-center">
-                                    <div class="flex justify-center space-x-2">
-                                        <a href="<?= site_url('/users/update/'.$user['id']);?>" 
-                                           class="btn-update glow-button px-4 py-2 rounded-lg text-white transition action-btn">
-                                            <i class="fas fa-edit mr-1.5"></i> Update
-                                        </a>
-                                        <a href="<?= site_url('/users/delete/'.$user['id']);?>" 
-                                           class="btn-danger glow-button px-4 py-2 rounded-lg text-white transition action-btn">
-                                            <i class="fas fa-trash mr-1.5"></i> Delete
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
+                                    <td class="table-cell text-center font-medium">
+                                        <i class="fas fa-user-circle mr-2 text-sage-400"></i><?= html_escape($user_item['username']); ?>
+                                    </td>
+                                    <td class="table-cell text-center">
+                                        <i class="fas fa-envelope mr-2 text-sage-400"></i><?= html_escape($user_item['email']); ?>
+                                    </td>
+                                    <?php if ($logged_in_user['role'] === 'admin'): ?>
+                                        <td class="table-cell text-center">
+                                            <i class="fas fa-lock mr-2 text-sage-400"></i>•••••••
+                                        </td>
+                                        <td class="table-cell text-center">
+                                            <span class="bg-sage-800 px-3 py-1.5 rounded-lg text-sage-300 font-medium border border-sage-700">
+                                                <?= html_escape($user_item['role']); ?>
+                                            </span>
+                                        </td>
+                                    <?php endif; ?>
+                                    <td class="table-cell text-center">
+                                        <div class="flex justify-center space-x-2">
+                                            <a href="<?= site_url('/users/update/'.$user_item['id']);?>" 
+                                               class="btn-update glow-button px-4 py-2 rounded-lg text-white transition action-btn">
+                                                <i class="fas fa-edit mr-1.5"></i> Update
+                                            </a>
+                                            <a href="<?= site_url('/users/delete/'.$user_item['id']);?>" 
+                                               class="btn-danger glow-button px-4 py-2 rounded-lg text-white transition action-btn">
+                                                <i class="fas fa-trash mr-1.5"></i> Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="<?= ($logged_in_user['role'] === 'admin') ? 6 : 4 ?>" class="table-cell text-center py-8">
+                                        <i class="fas fa-users text-sage-400 text-4xl mb-4"></i>
+                                        <p class="text-sage-300">No users found.</p>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -427,8 +465,12 @@
 
             <!-- Pagination -->
            <div class="flex justify-center mt-6">
-                <div class="pagination flex flex-nowrap overflow-x-auto justify-center gap-1 py-2">
-                    </div>
+                 <div class="pagination flex flex-nowrap overflow-x-auto justify-center gap-1 py-2">
+                    <?php if(isset($page) && !empty($page)): ?>
+                        <div class="pagination-links">
+                            <?= $page ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
