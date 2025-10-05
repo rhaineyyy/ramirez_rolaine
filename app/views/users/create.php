@@ -243,7 +243,7 @@
                 <h2 class="text-xl font-semibold text-sage-100">
                     <i class="fas fa-user-plus mr-2 text-sage-400"></i>Create New User
                 </h2>
-                <a href="<?= site_url('/'); ?>"
+                <a href="<?= site_url('/index.php/users'); ?>"
                    class="btn-secondary text-white px-4 py-2 rounded-lg flex items-center space-x-2 action-btn glow-button">
                     <i class="fas fa-arrow-left"></i>
                     <span>Back to Users</span>
@@ -283,7 +283,7 @@
 
                     <!-- Action Buttons -->
                     <div class="flex justify-end space-x-4 pt-4">
-                        <a href="<?= site_url('/'); ?>" 
+                        <a href="<?= site_url('/index.php/users'); ?>" 
                            class="px-5 py-2.5 rounded-lg border border-sage-700 text-sage-300 bg-sage-800 hover:bg-sage-700 transition action-btn">
                             <i class="fas fa-times mr-1.5"></i> Cancel
                         </a>
