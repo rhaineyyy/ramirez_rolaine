@@ -223,4 +223,4 @@ class UsersController extends Controller {
         unset($_SESSION['user']); // clear session manually
         redirect('auth/login');
     }
-}
+} 

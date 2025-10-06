@@ -281,29 +281,50 @@
         .pagination-links {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
-        .pagination-links a, .pagination-links span {
-            padding: 8px 16px;
+        .pagination-links a, 
+        .pagination-links span {
+            padding: 8px 14px;
             border-radius: 8px;
             text-decoration: none;
             background: rgba(255, 255, 255, 0.1);
             color: #f8faf7;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 40px;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .pagination-links a:hover {
             background: #647959;
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(100, 121, 89, 0.3);
         }
 
         .pagination-links .current {
             background: #647959;
             color: #f8faf7;
             font-weight: bold;
+            border-color: #849b7a;
+        }
+
+        .pagination-links .disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-links .disabled:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: none;
+            box-shadow: none;
         }
     </style>
 </head>
@@ -462,15 +483,18 @@
                     </table>
                 </div>
             </div>
-            <div class="flex justify-center mt-6">
-    <div class="pagination">
-        <?php echo $page; ?>
-    </div>
-</div>
+        </div>
+            <!-- Pagination -->
+            <div class="px-6 py-4 border-t border-sage-800">
+                <div class="flex justify-center">
+                    <div class="pagination-links">
+                        <?php echo $page; ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
