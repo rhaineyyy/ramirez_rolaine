@@ -483,7 +483,8 @@
                     </table>
                 </div>
             </div>
-        </div>
+                   </div>
+            
             <!-- Pagination -->
             <div class="px-6 py-4 border-t border-sage-800">
                 <div class="flex justify-center">
@@ -496,60 +497,60 @@
     </div>
 </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create darker stars on light background
-            const starsBackground = document.getElementById('starsBackground');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create darker stars on light background
+        const starsBackground = document.getElementById('starsBackground');
+        
+        // Create regular twinkling stars (darker colors)
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
             
-            // Create regular twinkling stars (darker colors)
-            for (let i = 0; i < 120; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                // Random size and position
-                const size = Math.random() * 2 + 1;
-                star.style.width = ${size}px;
-                star.style.height = ${size}px;
-                star.style.left = ${Math.random() * 100}%;
-                star.style.top = ${Math.random() * 100}%;
-                
-                // Random animation delay
-                star.style.animationDelay = ${Math.random() * 4}s;
-                
-                starsBackground.appendChild(star);
-            }
+            // Random size and position
+            const size = Math.random() * 2 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
             
-            // Create glowing stars (darker colors)
-            for (let i = 0; i < 40; i++) {
-                const glowingStar = document.createElement('div');
-                glowingStar.classList.add('glowing-star');
-                
-                // Random size and position
-                const size = Math.random() * 4 + 2;
-                glowingStar.style.width = ${size}px;
-                glowingStar.style.height = ${size}px;
-                glowingStar.style.left = ${Math.random() * 100}%;
-                glowingStar.style.top = ${Math.random() * 100}%;
-                
-                // Random animation delay
-                glowingStar.style.animationDelay = ${Math.random() * 3}s;
-                
-                starsBackground.appendChild(glowingStar);
-            }
+            // Random animation delay
+            star.style.animationDelay = `${Math.random() * 4}s`;
             
-            // Create shooting stars (darker colors)
-            for (let i = 0; i < 6; i++) {
-                const shootingStar = document.createElement('div');
-                shootingStar.classList.add('shooting-star');
-                
-                // Random position and animation delay
-                shootingStar.style.left = ${Math.random() * 20}%;
-                shootingStar.style.top = ${Math.random() * 20}%;
-                shootingStar.style.animationDelay = ${Math.random() * 10}s;
-                
-                starsBackground.appendChild(shootingStar);
-            }
-        });
-    </script>
+            starsBackground.appendChild(star);
+        }
+        
+        // Create glowing stars (darker colors)
+        for (let i = 0; i < 40; i++) {
+            const glowingStar = document.createElement('div');
+            glowingStar.classList.add('glowing-star');
+            
+            // Random size and position
+            const size = Math.random() * 4 + 2;
+            glowingStar.style.width = `${size}px`;
+            glowingStar.style.height = `${size}px`;
+            glowingStar.style.left = `${Math.random() * 100}%`;
+            glowingStar.style.top = `${Math.random() * 100}%`;
+            
+            // Random animation delay
+            glowingStar.style.animationDelay = `${Math.random() * 3}s`;
+            
+            starsBackground.appendChild(glowingStar);
+        }
+        
+        // Create shooting stars (darker colors)
+        for (let i = 0; i < 6; i++) {
+            const shootingStar = document.createElement('div');
+            shootingStar.classList.add('shooting-star');
+            
+            // Random position and animation delay
+            shootingStar.style.left = `${Math.random() * 20}%`;
+            shootingStar.style.top = `${Math.random() * 20}%`;
+            shootingStar.style.animationDelay = `${Math.random() * 10}s`;
+            
+            starsBackground.appendChild(shootingStar);
+        }
+    });
+</script>
 </body>
 </html>
