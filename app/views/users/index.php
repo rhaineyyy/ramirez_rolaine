@@ -276,7 +276,6 @@
             color: #f8faf7;
             padding: 12px 16px;
         }
-
         /* Pagination styling */
         .pagination-links {
             display: flex;
@@ -483,7 +482,7 @@
                     </table>
                 </div>
             </div>
-                   </div>
+                     </div>
             
             <!-- Pagination -->
             <div class="px-6 py-4 border-t border-sage-800">
