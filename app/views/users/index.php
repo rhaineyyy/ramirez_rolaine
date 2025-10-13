@@ -281,7 +281,9 @@
             display: flex;
             justify-content: center;
             gap: 6px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
         }
 
         .pagination-links a, 
@@ -484,15 +486,15 @@
             </div>
                      </div>
             
-            <!-- Pagination -->
-            <div class="px-6 py-4 border-t border-sage-800 bg-sage-800">
-                <div class="flex justify-center items-center">
-                    <div style="display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: nowrap; width: 100%;">
-                        <?php echo $page; ?>
-                    </div>
-                </div>
+                        <!-- Pagination -->
+        <div class="px-6 py-4 border-t border-sage-800 bg-sage-800">
+        <div class="flex justify-center items-center">
+            <div class="pagination-links">
+            <?php echo $page; ?>
             </div>
         </div>
+        </div>
+
     </div>
 </div>
 
