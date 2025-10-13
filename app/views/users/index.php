@@ -7,16 +7,37 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
     body {
       font-family: "Poppins", sans-serif;
-      background: radial-gradient(circle at top left, #141e30, #243b55);
-      color: #fff;
+      color: #1b3129;
+      background: radial-gradient(circle at top left, #d5e8d4, #a8c3a0, #8cae8a);
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ✨ Star background */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("https://www.transparenttextures.com/patterns/tiny-crosshatch.png");
+      opacity: 0.15;
+      z-index: 0;
     }
 
     .dashboard-container {
+      position: relative;
+      z-index: 1;
       max-width: 1200px;
       margin: 50px auto;
-      padding: 20px;
+      padding: 30px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 25px rgba(56, 87, 64, 0.3);
     }
 
     .dashboard-header {
@@ -28,46 +49,47 @@
 
     .dashboard-header h2 {
       font-weight: 700;
-      color: #00f2fe;
-      text-shadow: 0 0 10px #00f2fe;
+      color: #2e5038;
+      text-shadow: 0 0 6px rgba(90, 126, 90, 0.6);
     }
 
     .logout-btn {
       padding: 10px 18px;
       border: none;
-      border-radius: 6px;
-      background: linear-gradient(90deg, #ff416c, #ff4b2b);
-      color: #fff;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #93cf92, #78b978);
+      color: #1b3129;
       font-weight: 600;
+      box-shadow: 0 0 10px rgba(122, 169, 121, 0.6);
       transition: 0.3s;
-      box-shadow: 0 0 10px rgba(255,65,108,0.6);
     }
+
     .logout-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 20px rgba(255,75,43,0.8);
+      box-shadow: 0 0 20px rgba(90, 126, 90, 0.8);
     }
 
     .user-status {
       padding: 12px 18px;
       border-radius: 10px;
       font-size: 14px;
-      background: rgba(0, 242, 254, 0.1);
-      border: 1px solid rgba(0, 242, 254, 0.3);
-      color: #00f2fe;
+      background: rgba(185, 216, 179, 0.3);
+      border: 1px solid rgba(113, 147, 109, 0.5);
+      color: #2e5038;
       margin-bottom: 20px;
     }
     .user-status.error {
-      background: rgba(255, 65, 108, 0.1);
-      border: 1px solid rgba(255, 65, 108, 0.3);
-      color: #ff416c;
+      background: rgba(244, 162, 162, 0.2);
+      border: 1px solid rgba(213, 93, 93, 0.4);
+      color: #732b2b;
     }
 
     .table-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
       border-radius: 15px;
       padding: 20px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+      box-shadow: 0 0 25px rgba(56, 87, 64, 0.3);
     }
 
     table {
@@ -77,17 +99,17 @@
     }
 
     th {
-      background: #00f2fe;
-      color: #000;
+      background: #b0d6b0;
+      color: #1b3129;
       font-size: 14px;
       text-transform: uppercase;
       text-align: center;
     }
 
     td {
-      background: rgba(255,255,255,0.05);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      color: #fff;
+      background: rgba(255, 255, 255, 0.5);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      color: #1b3129;
       text-align: center;
     }
 
@@ -103,37 +125,38 @@
     }
 
     a.btn-update {
-      background: linear-gradient(90deg, #00f2fe, #4facfe);
-      box-shadow: 0 0 10px rgba(0,242,254,0.5);
+      background: linear-gradient(90deg, #86c786, #74b874);
+      box-shadow: 0 0 10px rgba(134, 199, 134, 0.5);
     }
     a.btn-update:hover {
-      box-shadow: 0 0 20px rgba(79,172,254,0.8);
+      box-shadow: 0 0 20px rgba(116, 184, 116, 0.8);
     }
 
     a.btn-delete {
-      background: linear-gradient(90deg, #ff416c, #ff4b2b);
-      box-shadow: 0 0 10px rgba(255,65,108,0.5);
+      background: linear-gradient(90deg, #e57373, #f06262);
+      box-shadow: 0 0 10px rgba(229, 115, 115, 0.5);
     }
     a.btn-delete:hover {
-      box-shadow: 0 0 20px rgba(255,75,43,0.8);
+      box-shadow: 0 0 20px rgba(229, 115, 115, 0.8);
     }
 
     .btn-create {
       width: 100%;
       padding: 14px;
       border: none;
-      background: linear-gradient(90deg, #00f2fe, #4facfe);
-      color: #000;
+      background: linear-gradient(90deg, #9bd69b, #7bb77b);
+      color: #1b3129;
       font-size: 1.1em;
       border-radius: 10px;
       font-weight: 600;
       transition: 0.3s;
       margin-top: 20px;
-      box-shadow: 0 0 15px rgba(0,242,254,0.6);
+      box-shadow: 0 0 15px rgba(134, 199, 134, 0.6);
     }
+
     .btn-create:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 25px rgba(79,172,254,0.8);
+      box-shadow: 0 0 25px rgba(116, 184, 116, 0.8);
     }
 
     .pagination-container {
@@ -144,27 +167,30 @@
 
     .search-form input {
       border-radius: 8px;
-      border: 1px solid rgba(0,242,254,0.4);
-      background: rgba(255,255,255,0.08);
-      color: #fff;
+      border: 1px solid rgba(113, 147, 109, 0.4);
+      background: rgba(255, 255, 255, 0.6);
+      color: #1b3129;
     }
+
     .search-form input:focus {
       outline: none;
-      border: 1px solid #00f2fe;
-      box-shadow: 0 0 10px #00f2fe;
-      background: rgba(255,255,255,0.15);
+      border: 1px solid #88b888;
+      box-shadow: 0 0 10px #b2d6b0;
+      background: rgba(255, 255, 255, 0.9);
     }
 
     .search-form button {
-      background: #00f2fe;
+      background: linear-gradient(90deg, #9fd49f, #83be83);
       border: none;
-      color: #000;
+      color: #1b3129;
       font-weight: 600;
       border-radius: 8px;
       padding: 8px 16px;
+      transition: 0.3s;
     }
+
     .search-form button:hover {
-      box-shadow: 0 0 15px #00f2fe;
+      box-shadow: 0 0 15px rgba(134, 199, 134, 0.6);
     }
   </style>
 </head>
