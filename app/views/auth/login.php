@@ -32,6 +32,20 @@
     }
   </script>
   <style>
+            /* Hide Chrome / Edge built-in password reveal button */
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-ms-clear {
+        display: none;
+        }
+
+        input[type="password"]::-webkit-credentials-auto-fill-button {
+        visibility: hidden;
+        display: none !important;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        }
+
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     body {
       font-family: 'Inter', sans-serif;
