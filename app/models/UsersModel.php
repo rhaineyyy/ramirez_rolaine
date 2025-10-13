@@ -1,3 +1,4 @@
+
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
@@ -15,7 +16,7 @@ class UsersModel extends Model {
         parent::__construct();
     }
 
-    public function get_user_by_id($id)
+     public function get_user_by_id($id)
     {
         return $this->db->table($this->table)
                         ->where('id', $id)
@@ -30,12 +31,13 @@ class UsersModel extends Model {
     }
 
     public function update_password($user_id, $new_password) {
-        return $this->db->table($this->table)
-                        ->where('id', $user_id)
-                        ->update([
-                            'password' => password_hash($new_password, PASSWORD_DEFAULT)
-                        ]);
+    return $this->db->table($this->table)
+                    ->where('id', $user_id)
+                    ->update([
+                        'password' => password_hash($new_password, PASSWORD_DEFAULT)
+                    ]);
     }
+
 
     public function get_all_users()
     {
@@ -55,29 +57,32 @@ class UsersModel extends Model {
         return null;
     }
 
-    public function page($q = '', $records_per_page = null, $page = null) {
-        $query = $this->db->table('users');
 
-        // If there's a search query, add LIKE conditions
-        if (!empty($q)) {
-            $query->group_start()
-                  ->like('id', $q)
-                  ->or_like('username', $q)
-                  ->or_like('email', $q)
-                  ->or_like('role', $q)
-                  ->group_end();
+
+    public function page($q = '', $records_per_page = null, $page = null) {
+ 
+            if (is_null($page)) {
+                return $this->db->table('users')->get_all();
+            } else {
+                $query = $this->db->table('users');
+
+                // Build LIKE conditions
+                $query->like('id', '%'.$q.'%')
+                    ->or_like('username', '%'.$q.'%')
+                    ->or_like('email', '%'.$q.'%')
+                    ->or_like('role', '%'.$q.'%');
+                    
+                // Clone before pagination
+                $countQuery = clone $query;
+
+                $data['total_rows'] = $countQuery->select_count('*', 'count')
+                                                ->get()['count'];
+
+                $data['records'] = $query->pagination($records_per_page, $page)
+                                        ->get_all();
+
+                return $data;
+            }
         }
 
-        // Clone before pagination for count
-        $countQuery = clone $query;
-        $total_rows = $countQuery->select_count('*', 'count')->get()['count'];
-
-        // Apply pagination
-        $records = $query->pagination($records_per_page, $page)->get_all();
-
-        return [
-            'total_rows' => $total_rows,
-            'records' => $records
-        ];
-    }
 }
