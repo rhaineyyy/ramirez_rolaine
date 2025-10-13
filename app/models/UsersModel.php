@@ -15,20 +15,20 @@ class UsersModel extends Model {
 
     public function get_user_by_id($id)
     {
-        return $this->db->table($this->table)
+        return $this->db->table($this->users)
                         ->where('id', $id)
                         ->get();
     }
 
     public function get_user_by_username($username)
     {
-        return $this->db->table($this->table)
+        return $this->db->table($this->users)
                         ->where('username', $username)
                         ->get();
     }
 
     public function update_password($user_id, $new_password) {
-        return $this->db->table($this->table)
+        return $this->db->table($this->users)
                         ->where('id', $user_id)
                         ->update([
                             'password' => password_hash($new_password, PASSWORD_DEFAULT)
@@ -37,7 +37,7 @@ class UsersModel extends Model {
 
     public function get_all_user()
     {
-        return $this->db->table($this->table)->get_all();
+        return $this->db->table($this->users)->get_all();
     }
 
     public function get_logged_in_user()
