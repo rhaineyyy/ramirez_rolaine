@@ -248,7 +248,7 @@ public function update($id)
         $records_per_page = 10;
 
         $user = $this->UsersModel->page($q, $records_per_page, $page);
-        $data['user'] = $user['records'];
+        $data['users'] = $user['records'];
         $total_rows = $user['total_rows'];
 
         $this->pagination->set_options([
