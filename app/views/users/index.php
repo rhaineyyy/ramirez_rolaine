@@ -276,62 +276,54 @@
             color: #f8faf7;
             padding: 12px 16px;
         }
-       /* Pagination styling */
+        /* Pagination styling */
         .pagination-links {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-        flex-wrap: nowrap; /* ✅ Force inline horizontal layout */
-        overflow-x: auto;
-        scrollbar-width: none; /* Hide scrollbar in Firefox */
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
-        .pagination-links::-webkit-scrollbar {
-        display: none; /* Hide scrollbar in Chrome/Safari */
-        }
-
-        .pagination-links a,
+        .pagination-links a, 
         .pagination-links span {
-        padding: 8px 14px;
-        border-radius: 8px;
-        text-decoration: none;
-        background: rgba(255, 255, 255, 0.1);
-        color: #f8faf7;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.3s ease;
-        font-size: 14px;
-        font-weight: 500;
-        min-width: 40px;
-        text-align: center;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #f8faf7;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 40px;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .pagination-links a:hover {
-        background: #92ca64; /* Lighter green hover */
-        color: #1b3a1b;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(100, 121, 89, 0.3);
+            background: #647959;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(100, 121, 89, 0.3);
         }
 
         .pagination-links .current {
-        background: #267e49; /* Active dark green */
-        color: #f8faf7;
-        font-weight: bold;
-        border-color: #92ca64;
+            background: #647959;
+            color: #f8faf7;
+            font-weight: bold;
+            border-color: #849b7a;
         }
 
         .pagination-links .disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .pagination-links .disabled:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: none;
-        box-shadow: none;
+            background: rgba(255, 255, 255, 0.1);
+            transform: none;
+            box-shadow: none;
         }
     </style>
 </head>
@@ -493,14 +485,13 @@
                      </div>
             
             <!-- Pagination -->
-<div class="px-6 py-4 border-t border-sage-800 bg-sage-800">
-  <div class="flex justify-center items-center">
-    <div class="pagination-links">
-      <?php echo $page; ?>
-    </div>
-  </div>
-</div>
-
+            <div class="px-6 py-4 border-t border-sage-800 bg-sage-800">
+                <div class="flex justify-center items-center">
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: nowrap; width: 100%;">
+                        <?php echo $page; ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
