@@ -276,57 +276,74 @@
             color: #f8faf7;
             padding: 12px 16px;
         }
-        /* Pagination styling */
-        .pagination-links {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
+        /* Pagination Styling */
+.pagination a,
+.pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #267e49; /* dark green text */
+  background-color: #e5f7db; /* soft green background */
+  transition: all 0.2s ease-in-out;
+  border: 1px solid #92ca64;
+}
 
-        .pagination-links a, 
-        .pagination-links span {
-            padding: 8px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: #f8faf7;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            font-size: 14px;
-            font-weight: 500;
-            min-width: 40px;
-            text-align: center;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
+.pagination a:hover {
+  background-color: #92ca64; /* main green */
+  color: white;
+  transform: translateY(-1px);
+}
 
-        .pagination-links a:hover {
-            background: #647959;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(100, 121, 89, 0.3);
-        }
+/* Active page styling */
+.pagination .active {
+  background-color: #267e49; /* dark green */
+  color: white;
+  border-color: #267e49;
+}
 
-        .pagination-links .current {
-            background: #647959;
-            color: #f8faf7;
-            font-weight: bold;
-            border-color: #849b7a;
-        }
+    /* Pagination Styling */
+    .pagination a,
+    .pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #267e49; /* dark green text */
+    background-color: #e5f7db; /* soft green background */
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #92ca64;
+    }
 
-        .pagination-links .disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+    .pagination a:hover {
+    background-color: #92ca64; /* main green */
+    color: white;
+    transform: translateY(-1px);
+    }
 
-        .pagination-links .disabled:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: none;
-            box-shadow: none;
-        }
+    /* Active page styling */
+    .pagination .active {
+    background-color: #267e49; /* dark green */
+    color: white;
+    border-color: #267e49;
+    }
+
+    /* Disable wrapping */
+    .pagination {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none; /* hide scrollbar for Firefox */
+    }
+    .pagination::-webkit-scrollbar {
+    display: none; /* hide scrollbar for Chrome/Safari */
+    }
+
     </style>
 </head>
 <body class="text-sage-100">
@@ -485,16 +502,14 @@
                 </div>
             </div>
                      </div>
-            
                         <!-- Pagination -->
-        <div class="px-6 py-4 border-t border-sage-800 bg-sage-800">
-        <div class="flex justify-center items-center">
-            <div class="pagination-links">
-            <?php echo $page; ?>
+            <div class="px-6 py-4 border-t border-sage-800 bg-sage-800">
+            <div class="flex justify-center items-center">
+                <div class="pagination flex flex-row justify-center items-center gap-2 flex-nowrap overflow-x-auto">
+                <?php echo $page; ?>
+                </div>
             </div>
-        </div>
-        </div>
-
+            </div>
     </div>
 </div>
 
