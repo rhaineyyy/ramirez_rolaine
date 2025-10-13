@@ -55,37 +55,29 @@ class UsersModel extends Model {
         return null;
     }
 
-  public function page($q = '', $records_per_page = null, $page = null) {
-    $query = $this->db->table('users');
+    public function page($q = '', $records_per_page = null, $page = null) {
+        $query = $this->db->table('users');
 
-    // If there's a search query, add LIKE conditions
-    if (!empty($q)) {
-        // Build a combined WHERE clause using raw SQL
-        $query->where("
-            id LIKE '%$q%' 
-            OR username LIKE '%$q%' 
-            OR email LIKE '%$q%' 
-            OR role LIKE '%$q%'
-        ");
+        // If there's a search query, add LIKE conditions
+        if (!empty($q)) {
+            $query->group_start()
+                  ->like('id', $q)
+                  ->or_like('username', $q)
+                  ->or_like('email', $q)
+                  ->or_like('role', $q)
+                  ->group_end();
+        }
+
+        // Clone before pagination for count
+        $countQuery = clone $query;
+        $total_rows = $countQuery->select_count('*', 'count')->get()['count'];
+
+        // Apply pagination
+        $records = $query->pagination($records_per_page, $page)->get_all();
+
+        return [
+            'total_rows' => $total_rows,
+            'records' => $records
+        ];
     }
-
-    // Clone before pagination for count
-    $countQuery = clone $query;
-    $total_rows = $countQuery->select_count('*', 'count')->get()['count'];
-
-    // Pagination handling
-    if ($records_per_page !== null && $page !== null) {
-        $offset = ($page - 1) * $records_per_page;
-        $query->limit($records_per_page, $offset);
-    }
-
-    // Execute query
-    $results = $query->get_all();
-
-    // Return results + pagination info
-    return [
-        'data' => $results,
-        'total' => $total_rows
-    ];
-}
 }

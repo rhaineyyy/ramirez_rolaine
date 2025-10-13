@@ -276,54 +276,34 @@
             color: #f8faf7;
             padding: 12px 16px;
         }
+
         /* Pagination styling */
         .pagination-links {
             display: flex;
             justify-content: center;
-            gap: 6px;
-            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
         }
 
-        .pagination-links a, 
-        .pagination-links span {
-            padding: 8px 14px;
+        .pagination-links a, .pagination-links span {
+            padding: 8px 16px;
             border-radius: 8px;
             text-decoration: none;
             background: rgba(255, 255, 255, 0.1);
             color: #f8faf7;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
-            font-size: 14px;
-            font-weight: 500;
-            min-width: 40px;
-            text-align: center;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .pagination-links a:hover {
             background: #647959;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(100, 121, 89, 0.3);
         }
 
         .pagination-links .current {
             background: #647959;
             color: #f8faf7;
             font-weight: bold;
-            border-color: #849b7a;
-        }
-
-        .pagination-links .disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .pagination-links .disabled:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: none;
-            box-shadow: none;
         }
     </style>
 </head>
@@ -482,74 +462,70 @@
                     </table>
                 </div>
             </div>
-                     </div>
-            
-            <!-- Pagination -->
-            <div class="px-6 py-4 border-t border-sage-800 bg-sage-800">
-                <div class="flex justify-center items-center">
-                    <div style="display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: nowrap; width: 100%;">
-                        <?php echo $page; ?>
-                    </div>
+            <div class="flex justify-center mt-6">
+    <div class="pagination">
+        <?php echo $page; ?>
+    </div>
+</div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Create darker stars on light background
-        const starsBackground = document.getElementById('starsBackground');
-        
-        // Create regular twinkling stars (darker colors)
-        for (let i = 0; i < 120; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create darker stars on light background
+            const starsBackground = document.getElementById('starsBackground');
             
-            // Random size and position
-            const size = Math.random() * 2 + 1;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.top = `${Math.random() * 100}%`;
+            // Create regular twinkling stars (darker colors)
+            for (let i = 0; i < 120; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size and position
+                const size = Math.random() * 2 + 1;
+                star.style.width = ${size}px;
+                star.style.height = ${size}px;
+                star.style.left = ${Math.random() * 100}%;
+                star.style.top = ${Math.random() * 100}%;
+                
+                // Random animation delay
+                star.style.animationDelay = ${Math.random() * 4}s;
+                
+                starsBackground.appendChild(star);
+            }
             
-            // Random animation delay
-            star.style.animationDelay = `${Math.random() * 4}s`;
+            // Create glowing stars (darker colors)
+            for (let i = 0; i < 40; i++) {
+                const glowingStar = document.createElement('div');
+                glowingStar.classList.add('glowing-star');
+                
+                // Random size and position
+                const size = Math.random() * 4 + 2;
+                glowingStar.style.width = ${size}px;
+                glowingStar.style.height = ${size}px;
+                glowingStar.style.left = ${Math.random() * 100}%;
+                glowingStar.style.top = ${Math.random() * 100}%;
+                
+                // Random animation delay
+                glowingStar.style.animationDelay = ${Math.random() * 3}s;
+                
+                starsBackground.appendChild(glowingStar);
+            }
             
-            starsBackground.appendChild(star);
-        }
-        
-        // Create glowing stars (darker colors)
-        for (let i = 0; i < 40; i++) {
-            const glowingStar = document.createElement('div');
-            glowingStar.classList.add('glowing-star');
-            
-            // Random size and position
-            const size = Math.random() * 4 + 2;
-            glowingStar.style.width = `${size}px`;
-            glowingStar.style.height = `${size}px`;
-            glowingStar.style.left = `${Math.random() * 100}%`;
-            glowingStar.style.top = `${Math.random() * 100}%`;
-            
-            // Random animation delay
-            glowingStar.style.animationDelay = `${Math.random() * 3}s`;
-            
-            starsBackground.appendChild(glowingStar);
-        }
-        
-        // Create shooting stars (darker colors)
-        for (let i = 0; i < 6; i++) {
-            const shootingStar = document.createElement('div');
-            shootingStar.classList.add('shooting-star');
-            
-            // Random position and animation delay
-            shootingStar.style.left = `${Math.random() * 20}%`;
-            shootingStar.style.top = `${Math.random() * 20}%`;
-            shootingStar.style.animationDelay = `${Math.random() * 10}s`;
-            
-            starsBackground.appendChild(shootingStar);
-        }
-    });
-</script>
+            // Create shooting stars (darker colors)
+            for (let i = 0; i < 6; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.classList.add('shooting-star');
+                
+                // Random position and animation delay
+                shootingStar.style.left = ${Math.random() * 20}%;
+                shootingStar.style.top = ${Math.random() * 20}%;
+                shootingStar.style.animationDelay = ${Math.random() * 10}s;
+                
+                starsBackground.appendChild(shootingStar);
+            }
+        });
+    </script>
 </body>
 </html>
