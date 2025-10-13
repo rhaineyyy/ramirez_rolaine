@@ -231,7 +231,7 @@ public function update($id)
     public function dashboard()
     {
         $this->call->model('UsersModel');
-        $data['users'] = $this->UsersModel->get_all_users(); // fetch all users
+        $data['user'] = $this->UsersModel->get_all_users(); // fetch all users
 
         $this->call->model('UsersModel');
 
