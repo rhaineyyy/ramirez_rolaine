@@ -11,6 +11,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         public function __construct()
         {
             parent::__construct();
+            $this->call->library('session'); 
         }
         public function index()
 {
