@@ -14,6 +14,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         }
         public function index()
 {
+    // ✅ Start the session before anything else
+    $this->call->library('session');
     $this->call->model('UsersModel');
 
     // Check kung may naka-login
@@ -27,22 +29,22 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     $data['logged_in_user'] = $logged_in_user;
 
     // Current page
-         $page = 1;
-        if(isset($_GET['page']) && ! empty($_GET['page'])) {
-            $page = $this->io->get('page');
-        }
+    $page = 1;
+    if (isset($_GET['page']) && !empty($_GET['page'])) {
+        $page = $this->io->get('page');
+    }
 
-        $q = '';
-        if(isset($_GET['q']) && ! empty($_GET['q'])) {
-            $q = trim($this->io->get('q'));
-        }
+    $q = '';
+    if (isset($_GET['q']) && !empty($_GET['q'])) {
+        $q = trim($this->io->get('q'));
+    }
 
-        $records_per_page = 10;
+    $records_per_page = 10;
 
     // Get paginated users
     $users = $this->UsersModel->page($q, $records_per_page, $page);
 
-    $data['user'] = $users['records'];   // ✅ only rows
+    $data['users'] = $users['records'];  // fixed small naming consistency
     $total_rows = $users['total_rows'];
 
     // Pagination setup
@@ -57,7 +59,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     $this->pagination->initialize($total_rows, $records_per_page, $page, 'users?q='.$q);
     $data['page'] = $this->pagination->paginate();
 
-    // ✅ Pass only cleaned data to view
+    // ✅ Pass data to view AFTER session started
     $this->call->view('users/index', $data);
 }
 
