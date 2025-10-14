@@ -17,7 +17,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     $this->call->model('UsersModel');
 
     // Check kung may naka-login
-    if (!isset($_SESSION['user'])) {
+    if (!isset($_SESSION['users'])) {
         redirect('/auth/login');
         exit;
     }
@@ -42,7 +42,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     // Get paginated users
     $users = $this->UsersModel->page($q, $records_per_page, $page);
 
-    $data['user'] = $users['records'];   // ✅ only rows
+    $data['users'] = $users['records'];   // ✅ only rows
     $total_rows = $users['total_rows'];
 
     // Pagination setup
@@ -134,7 +134,7 @@ public function update($id)
         }
     } else {
         // Pass both the user being edited and the logged-in user to the view
-        $data['user'] = $user;
+        $data['users'] = $user;
         $data['logged_in_user'] = $logged_in_user;
         $this->call->view('users/update', $data);
     }
@@ -220,7 +220,7 @@ public function update($id)
     public function dashboard()
     {
         $this->call->model('UsersModel');
-        $data['user'] = $this->UsersModel->get_all_users(); // fetch all users
+        $data['users'] = $this->UsersModel->get_all_users(); // fetch all users
 
         $this->call->model('UsersModel');
 
@@ -237,7 +237,7 @@ public function update($id)
         $records_per_page = 10;
 
         $user = $this->UsersModel->page($q, $records_per_page, $page);
-        $data['user'] = $user['records'];
+        $data['users'] = $user['records'];
         $total_rows = $user['total_rows'];
 
         $this->pagination->set_options([
