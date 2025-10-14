@@ -12,64 +12,54 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         {
             parent::__construct();
         }
-        
         public function index()
-        {
-            $this->call->model('UsersModel');
+{
+    $this->call->model('UsersModel');
 
-            // Check kung may naka-login
-            if (!isset($_SESSION['user'])) {
-                redirect('/auth/login');
-                exit;
-            }
+    // Check kung may naka-login
+    if (!isset($_SESSION['user'])) {
+        redirect('/auth/login');
+        exit;
+    }
 
-            // Kunin info ng naka-login na user
-            $logged_in_user = $_SESSION['user']; 
-            $data['logged_in_user'] = $logged_in_user;
+    // Kunin info ng naka-login na user
+    $logged_in_user = $_SESSION['user']; 
+    $data['logged_in_user'] = $logged_in_user;
 
-            // ✅ If admin → show all with pagination
-            if ($logged_in_user['role'] === 'admin') {
-                // Current page
-                $page = 1;
-                if(isset($_GET['page']) && ! empty($_GET['page'])) {
-                    $page = $this->io->get('page');
-                }
-
-                $q = '';
-                if(isset($_GET['q']) && ! empty($_GET['q'])) {
-                    $q = trim($this->io->get('q'));
-                }
-
-                $records_per_page = 10;
-
-                // Get paginated users
-                $users = $this->UsersModel->page($q, $records_per_page, $page);
-
-                $data['users'] = $users['records'];
-                $total_rows = $users['total_rows'];
-
-                // Pagination setup
-                $this->pagination->set_options([
-                    'first_link'     => '⏮ First',
-                    'last_link'      => 'Last ⏭',
-                    'next_link'      => 'Next →',
-                    'prev_link'      => '← Prev',
-                    'page_delimiter' => '&page='
-                ]);
-                $this->pagination->set_theme('custom');
-                $this->pagination->initialize($total_rows, $records_per_page, $page, 'users?q='.$q);
-                $data['page'] = $this->pagination->paginate();
-
-            } else {
-                // ✅ If regular user → only own data
-                $user = $this->UsersModel->get_user_by_id($logged_in_user['id']);
-                $data['users'] = [$user]; // wrap in array para same format sa view
-                $data['page'] = ''; // no pagination
-            }
-
-            // Pass to view
-            $this->call->view('users/index', $data);
+    // Current page
+         $page = 1;
+        if(isset($_GET['page']) && ! empty($_GET['page'])) {
+            $page = $this->io->get('page');
         }
+
+        $q = '';
+        if(isset($_GET['q']) && ! empty($_GET['q'])) {
+            $q = trim($this->io->get('q'));
+        }
+
+        $records_per_page = 10;
+
+    // Get paginated users
+    $users = $this->UsersModel->page($q, $records_per_page, $page);
+
+    $data['user'] = $users['records'];   // ✅ only rows
+    $total_rows = $users['total_rows'];
+
+    // Pagination setup
+    $this->pagination->set_options([
+        'first_link'     => '⏮ First',
+        'last_link'      => 'Last ⏭',
+        'next_link'      => 'Next →',
+        'prev_link'      => '← Prev',
+        'page_delimiter' => '&page='
+    ]);
+    $this->pagination->set_theme('custom');
+    $this->pagination->initialize($total_rows, $records_per_page, $page, 'users?q='.$q);
+    $data['page'] = $this->pagination->paginate();
+
+    // ✅ Pass only cleaned data to view
+    $this->call->view('users/index', $data);
+}
 
 
     public function create()
@@ -168,13 +158,12 @@ public function update($id)
         if ($this->io->method() == 'post') {
             $username = $this->io->post('username');
             $password = password_hash($this->io->post('password'), PASSWORD_BCRYPT);
-            $role = 'user'; // default role
 
             $data = [
                 'username' => $username,
                 'email'    => $this->io->post('email'),
                 'password' => $password,
-                'role'     => $role,
+                'role'     => $this->io->post('role'),
                 'created_at' => date('Y-m-d H:i:s')
             ];
 
@@ -248,7 +237,7 @@ public function update($id)
         $records_per_page = 10;
 
         $user = $this->UsersModel->page($q, $records_per_page, $page);
-        $data['users'] = $user['records'];
+        $data['user'] = $user['records'];
         $total_rows = $user['total_rows'];
 
         $this->pagination->set_options([
@@ -262,7 +251,7 @@ public function update($id)
         $this->pagination->initialize($total_rows, $records_per_page, $page, 'users?q='.$q);
         $data['page'] = $this->pagination->paginate();
 
-        $this->call->view('users/dashboard', $data);
+        $this->call->view('user/dashboard', $data);
     }
 
 
