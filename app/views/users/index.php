@@ -5,221 +5,322 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Students Info</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    body {
+    /* Base reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: "Poppins", sans-serif;
-      background: radial-gradient(circle at top left, #141e30, #243b55);
-      color: #fff;
     }
 
-    .dashboard-container {
-      max-width: 1200px;
-      margin: 50px auto;
-      padding: 20px;
+    /* 🌿 Background match with update page */
+    body {
+      background: linear-gradient(135deg, #c5e5cf, #a8d5ba);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    .dashboard-header {
+    /* 🌿 Floating Bubbles (same as update page) */
+    .bubbles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .bubbles span {
+      position: absolute;
+      bottom: -150px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      animation: rise 20s infinite ease-in;
+    }
+
+    .bubbles span:nth-child(1) { left: 10%; width: 60px; height: 60px; animation-delay: 0s; }
+    .bubbles span:nth-child(2) { left: 30%; width: 25px; height: 25px; animation-delay: 3s; animation-duration: 17s; }
+    .bubbles span:nth-child(3) { left: 50%; width: 40px; height: 40px; animation-delay: 5s; animation-duration: 22s; }
+    .bubbles span:nth-child(4) { left: 70%; width: 55px; height: 55px; animation-delay: 2s; animation-duration: 19s; }
+    .bubbles span:nth-child(5) { left: 90%; width: 30px; height: 30px; animation-delay: 4s; animation-duration: 18s; }
+    .bubbles span:nth-child(6) { left: 20%; width: 45px; height: 45px; animation-delay: 1s; animation-duration: 21s; }
+    .bubbles span:nth-child(7) { left: 40%; width: 35px; height: 35px; animation-delay: 6s; animation-duration: 16s; }
+    .bubbles span:nth-child(8) { left: 60%; width: 50px; height: 50px; animation-delay: 7s; animation-duration: 20s; }
+    .bubbles span:nth-child(9) { left: 80%; width: 40px; height: 40px; animation-delay: 8s; animation-duration: 18s; }
+    .bubbles span:nth-child(10) { left: 5%; width: 30px; height: 30px; animation-delay: 9s; animation-duration: 19s; }
+
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 0.7; }
+      100% { transform: translateY(-1100px) scale(1.2); opacity: 0; }
+    }
+
+    /* 🌸 Glass Container */
+    .glass-container {
+      position: relative;
+      z-index: 2;
+      margin: 40px auto;
+      padding: 40px;
+      width: 100%;
+      max-width: 1100px;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2.2em;
+      font-weight: 600;
+      color: #1b4d3e;
+    }
+
+    /* Top Bar */
+    .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .dashboard-header h2 {
-      font-weight: 700;
-      color: #00f2fe;
-      text-shadow: 0 0 10px #00f2fe;
-    }
-
+    /* 🌟 Logout Button */
     .logout-btn {
-      padding: 10px 18px;
+      width: 150px;
+      padding: 12px;
+      background: #1b4d3e;
+      color: #fff;
       border: none;
-      border-radius: 6px;
-      background: linear-gradient(90deg, #ff416c, #ff4b2b);
-      color: #fff;
-      font-weight: 600;
-      transition: 0.3s;
-      box-shadow: 0 0 10px rgba(255,65,108,0.6);
-    }
-    .logout-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 20px rgba(255,75,43,0.8);
-    }
-
-    .user-status {
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-size: 14px;
-      background: rgba(0, 242, 254, 0.1);
-      border: 1px solid rgba(0, 242, 254, 0.3);
-      color: #00f2fe;
-      margin-bottom: 20px;
-    }
-    .user-status.error {
-      background: rgba(255, 65, 108, 0.1);
-      border: 1px solid rgba(255, 65, 108, 0.3);
-      color: #ff416c;
-    }
-
-    .table-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(15px);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.4);
-    }
-
-    table {
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    th {
-      background: #00f2fe;
-      color: #000;
-      font-size: 14px;
-      text-transform: uppercase;
-      text-align: center;
-    }
-
-    td {
-      background: rgba(255,255,255,0.05);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      color: #fff;
-      text-align: center;
-    }
-
-    a.btn-action {
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 13px;
-      margin: 0 2px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    a.btn-update {
-      background: linear-gradient(90deg, #00f2fe, #4facfe);
-      box-shadow: 0 0 10px rgba(0,242,254,0.5);
-    }
-    a.btn-update:hover {
-      box-shadow: 0 0 20px rgba(79,172,254,0.8);
-    }
-
-    a.btn-delete {
-      background: linear-gradient(90deg, #ff416c, #ff4b2b);
-      box-shadow: 0 0 10px rgba(255,65,108,0.5);
-    }
-    a.btn-delete:hover {
-      box-shadow: 0 0 20px rgba(255,75,43,0.8);
-    }
-
-    .btn-create {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      background: linear-gradient(90deg, #00f2fe, #4facfe);
-      color: #000;
       font-size: 1.1em;
-      border-radius: 10px;
-      font-weight: 600;
-      transition: 0.3s;
-      margin-top: 20px;
-      box-shadow: 0 0 15px rgba(0,242,254,0.6);
-    }
-    .btn-create:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 25px rgba(79,172,254,0.8);
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      text-decoration: none;
+      text-align: center;
     }
 
-    .pagination-container {
+    .logout-btn:hover {
+      background: #2f7a63;
+      transform: translateY(-2px);
+    }
+
+    /* Search box */
+    .search-form {
       display: flex;
-      justify-content: center;
-      margin-top: 20px;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
     }
 
     .search-form input {
-      border-radius: 8px;
-      border: 1px solid rgba(0,242,254,0.4);
-      background: rgba(255,255,255,0.08);
-      color: #fff;
+      border-radius: 6px;
+      padding: 10px;
+      border: none;
+      font-size: 14px;
+      color: #1b4d3e;
+      background: rgba(255, 255, 255, 0.8);
     }
+
     .search-form input:focus {
       outline: none;
-      border: 1px solid #00f2fe;
-      box-shadow: 0 0 10px #00f2fe;
-      background: rgba(255,255,255,0.15);
+      border: 2px solid #76b29a;
+      box-shadow: 0 0 8px rgba(118, 178, 154, 0.5);
     }
 
     .search-form button {
-      background: #00f2fe;
-      border: none;
-      color: #000;
+      padding: 10px 18px;
+      font-size: 14px;
       font-weight: 600;
-      border-radius: 8px;
-      padding: 8px 16px;
+      border-radius: 6px;
+      border: none;
+      background: #1b4d3e;
+      color: #fff;
+      transition: 0.3s ease;
     }
+
     .search-form button:hover {
-      box-shadow: 0 0 15px #00f2fe;
+      background: #2f7a63;
+      transform: translateY(-2px);
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    th {
+      background: rgba(27, 77, 62, 0.8);
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    td {
+      color: #1b4d3e;
+      border-bottom: 1px solid rgba(27, 77, 62, 0.2);
+    }
+
+    tr:hover {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    /* 🌟 Buttons (Update / Delete / Create) */
+    .action-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      margin: 4px;
+      transition: 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .update-btn {
+      background: #1b4d3e;
+      color: #fff;
+    }
+
+    .update-btn:hover {
+      background: #2f7a63;
+      transform: translateY(-2px);
+    }
+
+    .delete-btn {
+      background: #d9534f;
+      color: #fff;
+    }
+
+    .delete-btn:hover {
+      background: #c9302c;
+      transform: translateY(-2px);
+    }
+
+    .btn-create {
+      display: block;
+      margin: 30px auto 0;
+      padding: 14px;
+      width: 50%;
+      background: #1b4d3e;
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: 500;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-create:hover {
+      background: #2f7a63;
+      transform: translateY(-2px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .glass-container {
+        padding: 25px;
+        margin: 20px;
+      }
+      
+      .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+      }
+      
+      .search-form {
+        width: 100%;
+      }
+      
+      .btn-create {
+        width: 100%;
+      }
+      
+      table {
+        display: block;
+        overflow-x: auto;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="dashboard-container">
-    
-    <div class="dashboard-header">
-      <h2>
-        <?= ($logged_in_user['role'] === 'admin') ? 'Admin Dashboard' : 'User Dashboard'; ?>
-      </h2>
-      <a href="<?=site_url('auth/logout'); ?>"><button class="logout-btn">Logout</button></a>
-    </div>
+  <!-- Floating Bubbles -->
+  <div class="bubbles">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
 
-    <?php if(!empty($logged_in_user)): ?>
-      <div class="user-status mb-3">
-        <strong>Welcome:</strong> <?= html_escape($logged_in_user['username']); ?>
-      </div>
-    <?php else: ?>
-      <div class="user-status error mb-3">
-        Logged in user not found
-      </div>
-    <?php endif; ?>
+  <section>
+    <div class="glass-container">
+      <h1><?= ($logged_in_user['role'] === 'admin') ? 'Admin Dashboard' : 'User Dashboard'; ?></h1>
 
-    <!-- Search + Table -->
-    <div class="table-card">
-      <form action="<?=site_url('users');?>" method="get" class="d-flex mb-3 search-form">
-        <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
-        <input name="q" type="text" class="form-control me-2" placeholder="Search" value="<?=html_escape($q);?>">
-        <button type="submit">Search</button>
-      </form>
+      <div class="top-bar">
+        <a href="<?=site_url('auth/logout');?>"><button class="logout-btn">Logout</button></a>
+
+        <?php if ($logged_in_user['role'] === 'admin'): ?>
+        <form action="<?=site_url('users');?>" method="get" class="search-form">
+          <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
+          <input name="q" type="text" placeholder="Search" value="<?=html_escape($q);?>">
+          <button type="submit">Search</button>
+        </form>
+        <?php endif; ?>
+      </div>
 
       <div class="table-responsive">
-        <table class="table table-bordered table-hover">
+        <table>
           <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
             <?php if ($logged_in_user['role'] === 'admin'): ?>
-              <th>Password</th>
               <th>Role</th>
             <?php endif; ?>
             <th>Action</th>
           </tr>
+
           <?php foreach ($users as $user): ?>
           <tr>
             <td><?=html_escape($user['id']); ?></td>
             <td><?=html_escape($user['username']); ?></td>
             <td><?=html_escape($user['email']); ?></td>
             <?php if ($logged_in_user['role'] === 'admin'): ?>
-              <td>*******</td>
               <td><?= html_escape($user['role']); ?></td>
             <?php endif; ?>
             <td>
-              <a href="<?=site_url('/users/update/'.$user['id']);?>" class="btn-action btn-update">Update</a>
-              <a href="<?=site_url('/users/delete/'.$user['id']);?>" class="btn-action btn-delete">Delete</a>
+              <a href="<?=site_url('/users/update/'.$user['id']);?>" class="action-btn update-btn">Update</a>
+              <?php if ($logged_in_user['role'] === 'admin'): ?>
+                <a href="<?=site_url('/users/delete/'.$user['id']);?>" class="action-btn delete-btn">Delete</a>
+              <?php endif; ?>
             </td>
           </tr>
           <?php endforeach; ?>
@@ -229,9 +330,13 @@
       <div class="pagination-container">
         <?php echo $page; ?>
       </div>
-    </div>
 
-    <a href="<?=site_url('users/create'); ?>" class="btn-create">+ Create New User</a>
-  </div>
+      <div class="button-container">
+        <?php if ($logged_in_user['role'] === 'admin'): ?>
+        <a href="<?=site_url('users/create'); ?>" class="btn-create">+ Create New User</a>
+        <?php endif; ?>
+      </div>
+    </div>
+  </section>
 </body>
 </html>
