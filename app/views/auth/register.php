@@ -111,9 +111,10 @@
       gap: 15px;
     }
 
-    .register input {
+    .register input,
+    .register select {
       width: 100%;
-      padding: 14px 45px 14px 16px;
+      padding: 14px 16px;
       font-size: 1.05em;
       border-radius: 6px;
       border: none;
@@ -122,7 +123,8 @@
       transition: 0.3s;
     }
 
-    .register input:focus {
+    .register input:focus,
+    .register select:focus {
       border: 2px solid #76b29a;
       box-shadow: 0 0 8px rgba(118, 178, 154, 0.5);
       outline: none;
@@ -191,6 +193,19 @@
     .password-field {
       position: relative;
     }
+
+    /* Role selection styling */
+    .role-selection {
+      text-align: left;
+      margin-bottom: 5px;
+    }
+
+    .role-selection label {
+      color: #1b4d3e;
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: block;
+    }
   </style>
 </head>
 
@@ -214,6 +229,16 @@
     <form method="POST" action="<?= site_url('auth/register'); ?>" class="inputBox">
       <input type="text" name="username" placeholder="Username" required>
       <input type="email" name="email" placeholder="Email" required>
+
+      <!-- Role Selection -->
+      <div class="role-selection">
+        <label for="role">Select Role:</label>
+        <select name="role" id="role" required>
+          <option value="">-- Select Role --</option>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
 
       <div class="password-field">
         <input type="password" id="password" name="password" placeholder="Password" required>
@@ -246,6 +271,16 @@
     }
     toggleVisibility('togglePassword', 'password');
     toggleVisibility('toggleConfirmPassword', 'confirmPassword');
+
+    // Optional: Add some validation for role selection
+    document.querySelector('form').addEventListener('submit', function(e) {
+      const roleSelect = document.getElementById('role');
+      if (!roleSelect.value) {
+        e.preventDefault();
+        alert('Please select a role');
+        roleSelect.focus();
+      }
+    });
   </script>
 </body>
 </html>
