@@ -6,7 +6,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
  * 
  * Automatically generated via CLI.
  */
-class auth {
+class Auth {
   protected $_lava;
 
     public function __construct()
@@ -27,7 +27,7 @@ class auth {
     public function register($username, $email, $password, $role = 'user')
     {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        return $this->_lava->db->table('users')->insert([
+        return $this->_lava->db->table('user')->insert([
             'username' => $username,
             'email'    => $email,
             'password' => $hash,
@@ -45,7 +45,7 @@ class auth {
      */
     public function login($username, $password)
     {
-        $user = $this->_lava->db->table('users')
+        $user = $this->_lava->db->table('user')
                          ->where('username', $username)
                          ->get();
 
