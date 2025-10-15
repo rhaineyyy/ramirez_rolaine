@@ -308,7 +308,7 @@
             <th>Action</th>
           </tr>
 
-          <?php foreach ($users as $user): ?>
+          <?php foreach ($user as $user): ?>
           <tr>
             <td><?=html_escape($user['id']); ?></td>
             <td><?=html_escape($user['username']); ?></td>
