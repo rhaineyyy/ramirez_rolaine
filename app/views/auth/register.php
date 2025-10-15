@@ -230,15 +230,7 @@
       <input type="text" name="username" placeholder="Username" required>
       <input type="email" name="email" placeholder="Email" required>
 
-      <!-- Role Selection -->
-      <div class="role-selection">
-        <label for="role">Select Role:</label>
-        <select name="role" id="role" required>
-          <option value="">-- Select Role --</option>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
-      </div>
+
 
       <div class="password-field">
         <input type="password" id="password" name="password" placeholder="Password" required>
